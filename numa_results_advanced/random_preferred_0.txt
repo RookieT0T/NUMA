@@ -1,0 +1,9 @@
+Allocating 1024 MB (134217728 elements)...
+Initializing array...
+Initialization complete.
+
+=== Random Access ===
+Time: 1.009 seconds (13421772 iterations)
+Sum: 664304760
+
+Test completed successfully

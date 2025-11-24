@@ -1,0 +1,10 @@
+Allocating 1024 MB (134217728 elements)...
+Initializing array...
+Initialization complete.
+
+=== Latency Test ===
+Average latency: 98.24 ns per access
+Total time: 0.982 seconds
+Sum (prevent optimization): 494994343
+
+Test completed successfully

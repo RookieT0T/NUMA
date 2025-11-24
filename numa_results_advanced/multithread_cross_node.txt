@@ -1,0 +1,12 @@
+Allocating 2048 MB (268435456 elements)...
+Initializing array...
+Initialization complete.
+
+=== Multi-threaded Test (4 threads) ===
+Thread 3: sum=3321887904, time=0.169s
+Thread 0: sum=3321887616, time=0.195s
+Thread 2: sum=3321889408, time=0.196s
+Thread 1: sum=3321888912, time=0.197s
+Total parallel time: 0.197 seconds
+
+Test completed successfully
