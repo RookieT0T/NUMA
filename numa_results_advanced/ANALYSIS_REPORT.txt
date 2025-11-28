@@ -1,32 +1,19 @@
 ================================================
 NUMA Performance Analysis Report
-Generated: Mon Nov 24 12:34:30 PM CST 2025
+Generated: Thu Nov 27 08:45:26 PM CST 2025
 ================================================
 
 1. MEMORY PRESSURE & FALLBACK BEHAVIOR
 ----------------------------------------
-  Size: 100513MB - Time: s
-  Size: 20102MB - Time: 6.028s
-  Size: 40205MB - Time: 12.100s
-  Size: 60308MB - Time: 18.085s
 
 2. LOCAL VS REMOTE LATENCY
 ----------------------------
-  Local latency:  75.15 ns
-  Remote latency: 98.24 ns
-  Overhead:       30.00%
 
 3. POLICY PERFORMANCE COMPARISON
 ----------------------------------
-  interleave: 0.619s
-  localalloc: 0.644s
-  membind: 6.028s
 
 4. MULTI-THREADED PERFORMANCE
 -------------------------------
-  cross_node: 0.197s
-  interleave: 0.200s
-  same_node: 0.199s
 
 5. KEY FINDINGS
 ----------------

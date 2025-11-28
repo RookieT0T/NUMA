@@ -1,5 +1,0 @@
-numa_hint_faults 22944144
-numa_hint_faults_local 14585027
-numa_pages_migrated 6558832
-pgmigrate_success 6657084
-pgmigrate_fail 5586

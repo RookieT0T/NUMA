@@ -1,9 +1,0 @@
-Allocating 60308 MB (7904690176 elements)...
-Initializing array...
-Initialization complete.
-
-=== Sequential Access ===
-Time: 18.085 seconds
-Sum: 391282162800
-
-Test completed successfully

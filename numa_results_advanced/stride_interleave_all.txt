@@ -1,9 +1,0 @@
-Allocating 1024 MB (134217728 elements)...
-Initializing array...
-Initialization complete.
-
-=== Stride Access (stride=64) ===
-Time: 0.029 seconds
-Sum: 100663264
-
-Test completed successfully

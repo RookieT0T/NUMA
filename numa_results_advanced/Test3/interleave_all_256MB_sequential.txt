@@ -1,0 +1,11 @@
+Allocating 256 MB (33554432 elements)...
+Initializing array...
+Initialization complete.
+
+=== Sequential Access Pattern ===
+Throughput: 3242.41 MB/s
+Average latency: 2.35 ns per access
+Time: 0.002 seconds
+Sum (prevent optimization): 49997032
+
+Test completed successfully

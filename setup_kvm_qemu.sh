@@ -204,13 +204,14 @@ source ~/.bashrc
 sudo apt-get update
 sudo apt-get install flex bison
 sudo apt-get install libelf-dev
+sudo apt-get install -y libnuma-dev
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 echo "linux/" > .gitignore
 cd linux
 vng --build --commit v6.2-rc4
 
 # Install numa controls && libraries for NPB
-sudo apt install numactl
+sudo apt-get install -y numactl
 sudo apt-get install gfortran
 
 cat >> .gitignore << 'EOF'

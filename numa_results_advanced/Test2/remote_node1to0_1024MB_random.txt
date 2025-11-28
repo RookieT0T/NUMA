@@ -1,0 +1,11 @@
+Allocating 1024 MB (134217728 elements)...
+Initializing array...
+Initialization complete.
+
+=== Random Access Pattern ===
+Throughput: 352.28 MB/s (1000000 random accesses)
+Average latency: 21.66 ns per access
+Time: 0.022 seconds
+Sum (prevent optimization): 50020921
+
+Test completed successfully

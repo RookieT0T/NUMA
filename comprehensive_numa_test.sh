@@ -6,9 +6,9 @@ RESULTS="numa_results_advanced"
 mkdir -p $RESULTS
 
 # Create subdirectories for each test category
-mkdir -p ${RESULTS}/category1_memory_pressure
-mkdir -p ${RESULTS}/category2_cross_node
-mkdir -p ${RESULTS}/category3_policy_comparison
+mkdir -p ${RESULTS}/Test1
+mkdir -p ${RESULTS}/Test2
+mkdir -p ${RESULTS}/Test3
 
 # Get available memory per node (in MB)
 NODE0_MEM=$(numactl --hardware | grep "node 0 size" | awk '{print $4}')
@@ -69,11 +69,11 @@ for size in "${TEST_SIZES[@]}"; do
 
         # Test 1a: membind with various access patterns
         echo "    - Strict membind to node 0"
-        numactl --membind=0 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/category1_memory_pressure/membind_node0_${size}MB_${pattern}.txt 2>&1
+        numactl --membind=0 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/Test1/membind_node0_${size}MB_${pattern}.txt 2>&1
 
         # Test 1b: preferred with overflow (should fallback gracefully)
         echo "    - Preferred node 0 (may fallback)"
-        numactl --preferred=0 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/category1_memory_pressure/preferred_node0_${size}MB_${pattern}.txt 2>&1
+        numactl --preferred=0 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/Test1/preferred_node0_${size}MB_${pattern}.txt 2>&1
 
         sleep 0.5
     done
@@ -99,15 +99,15 @@ for size in "${TEST_SIZES[@]}"; do
 
         # Test 2a: Local access (node 0 -> node 0)
         echo "    - Testing local memory (node 0 -> node 0)"
-        numactl --membind=0 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/category2_cross_node/local_node0_${size}MB_${pattern}.txt 2>&1
+        numactl --membind=0 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/Test2/local_node0_${size}MB_${pattern}.txt 2>&1
 
         # Test 2b: Remote access (node 0 -> node 1)
         echo "    - Testing remote memory (node 0 -> node 1)"
-        numactl --membind=1 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/category2_cross_node/remote_node0to1_${size}MB_${pattern}.txt 2>&1
+        numactl --membind=1 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/Test2/remote_node0to1_${size}MB_${pattern}.txt 2>&1
 
         # Test 2c: Remote access (node 1 -> node 0)
         echo "    - Testing remote memory (node 1 -> node 0)"
-        numactl --membind=0 --cpunodebind=1 $BENCHMARK $size $pattern > ${RESULTS}/category2_cross_node/remote_node1to0_${size}MB_${pattern}.txt 2>&1
+        numactl --membind=0 --cpunodebind=1 $BENCHMARK $size $pattern > ${RESULTS}/Test2/remote_node1to0_${size}MB_${pattern}.txt 2>&1
 
         sleep 0.5
     done
@@ -133,20 +133,20 @@ for size in "${TEST_SIZES[@]}"; do
 
         # Test 3a: interleave vs local allocation
         echo "    - Interleave across all nodes"
-        numactl --interleave=all --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/category3_policy_comparison/interleave_all_${size}MB_${pattern}.txt 2>&1
+        numactl --interleave=all --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/Test3/interleave_all_${size}MB_${pattern}.txt 2>&1
 
         echo "    - Local allocation"
-        numactl --localalloc --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/category3_policy_comparison/localalloc_node0_${size}MB_${pattern}.txt 2>&1
+        numactl --localalloc --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/Test3/localalloc_node0_${size}MB_${pattern}.txt 2>&1
 
         echo "    - Strict membind to node 0"
-        numactl --membind=0 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/category3_policy_comparison/membind_strict_node0_${size}MB_${pattern}.txt 2>&1
+        numactl --membind=0 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/Test3/membind_strict_node0_${size}MB_${pattern}.txt 2>&1
 
         # Test 3b: Preferred with different preferred nodes (mismatched CPU/memory)
         echo "    - Preferred node 0, CPU on node 1"
-        numactl --preferred=0 --cpunodebind=1 $BENCHMARK $size $pattern > ${RESULTS}/category3_policy_comparison/preferred_node0_cpu_node1_${size}MB_${pattern}.txt 2>&1
+        numactl --preferred=0 --cpunodebind=1 $BENCHMARK $size $pattern > ${RESULTS}/Test3/preferred_node0_cpu_node1_${size}MB_${pattern}.txt 2>&1
 
         echo "    - Preferred node 1, CPU on node 0"
-        numactl --preferred=1 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/category3_policy_comparison/preferred_node1_cpu_node0_${size}MB_${pattern}.txt 2>&1
+        numactl --preferred=1 --cpunodebind=0 $BENCHMARK $size $pattern > ${RESULTS}/Test3/preferred_node1_cpu_node0_${size}MB_${pattern}.txt 2>&1
 
         sleep 0.5
     done

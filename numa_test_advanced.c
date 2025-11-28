@@ -118,35 +118,28 @@ void test_sequential(long *array, size_t size) {
     printf("=== Sequential Access Pattern ===\n");
     volatile long sum = 0;
 
-    // Warmup
-    for (size_t i = 0; i < size && i < 10000; i++) {
-        sum += array[i];
+    // Warmup with random accesses to avoid caching
+    for (size_t i = 0; i < 10000; i++) {
+        size_t idx = rand() % size;
+        sum += array[idx];
     }
 
-    // Throughput measurement
+    // Single measurement loop for both throughput and latency
+    size_t num_iterations = (size < 1000000) ? size : 1000000;
     double start = get_time();
-    for (size_t i = 0; i < size; i++) {
+    for (size_t i = 0; i < num_iterations; i++) {
         sum += array[i];
     }
     double end = get_time();
 
     double time_sec = (end - start) / 1000000.0;
-    double bytes = size * sizeof(long);
+    double bytes = num_iterations * sizeof(long);
     double throughput_mbps = (bytes / (1024 * 1024)) / time_sec;
+    double avg_latency_ns = (time_sec * 1000000000.0) / num_iterations;
 
     printf("Throughput: %.2f MB/s\n", throughput_mbps);
-    printf("Time: %.3f seconds\n", time_sec);
-
-    // Latency measurement (sequential access to first N elements)
-    size_t latency_iterations = (size < 1000000) ? size : 1000000;
-    start = get_time();
-    for (size_t i = 0; i < latency_iterations; i++) {
-        sum += array[i];
-    }
-    end = get_time();
-
-    double avg_latency_ns = ((end - start) * 1000.0) / latency_iterations;
     printf("Average latency: %.2f ns per access\n", avg_latency_ns);
+    printf("Time: %.3f seconds\n", time_sec);
     printf("Sum (prevent optimization): %ld\n", sum);
 }
 
@@ -155,40 +148,42 @@ void test_random(long *array, size_t size) {
     printf("=== Random Access Pattern ===\n");
     volatile long sum = 0;
 
-    // Warmup
+    // Warmup with random accesses (use rand() directly to avoid caching)
     for (size_t i = 0; i < 10000; i++) {
         size_t idx = rand() % size;
         sum += array[idx];
     }
 
-    // Throughput measurement (many random accesses)
-    size_t throughput_iterations = size / 4;  // 25% of array
+    // Pre-compute random indices to avoid rand() overhead during measurement
+    size_t num_iterations = 1000000;
+    size_t *indices = malloc(num_iterations * sizeof(size_t));
+    if (indices == NULL) {
+        fprintf(stderr, "Failed to allocate index array\n");
+        return;
+    }
+
+    for (size_t i = 0; i < num_iterations; i++) {
+        indices[i] = rand() % size;
+    }
+
+    // Single measurement loop for both throughput and latency
     double start = get_time();
-    for (size_t i = 0; i < throughput_iterations; i++) {
-        size_t idx = rand() % size;
-        sum += array[idx];
+    for (size_t i = 0; i < num_iterations; i++) {
+        sum += array[indices[i]];
     }
     double end = get_time();
 
     double time_sec = (end - start) / 1000000.0;
-    double bytes_accessed = throughput_iterations * sizeof(long);
+    double bytes_accessed = num_iterations * sizeof(long);
     double throughput_mbps = (bytes_accessed / (1024 * 1024)) / time_sec;
+    double avg_latency_ns = (time_sec * 1000000000.0) / num_iterations;
 
-    printf("Throughput: %.2f MB/s (%zu random accesses)\n", throughput_mbps, throughput_iterations);
-    printf("Time: %.3f seconds\n", time_sec);
-
-    // Latency measurement (individual random accesses)
-    size_t latency_iterations = 1000000;
-    start = get_time();
-    for (size_t i = 0; i < latency_iterations; i++) {
-        size_t idx = rand() % size;
-        sum += array[idx];
-    }
-    end = get_time();
-
-    double avg_latency_ns = ((end - start) * 1000.0) / latency_iterations;
+    printf("Throughput: %.2f MB/s (%zu random accesses)\n", throughput_mbps, num_iterations);
     printf("Average latency: %.2f ns per access\n", avg_latency_ns);
+    printf("Time: %.3f seconds\n", time_sec);
     printf("Sum (prevent optimization): %ld\n", sum);
+
+    free(indices);
 }
 
 // Stride access
@@ -197,39 +192,42 @@ void test_stride(long *array, size_t size) {
     volatile long sum = 0;
     int stride = 64;
 
-    // Warmup
-    for (size_t i = 0; i < size && i < 10000 * stride; i += stride) {
-        sum += array[i];
+    // Warmup with random accesses (use rand() directly to avoid caching)
+    for (size_t i = 0; i < 10000; i++) {
+        size_t idx = rand() % size;
+        sum += array[idx];
     }
 
-    // Throughput measurement
+    // Pre-compute stride indices to avoid arithmetic overhead during measurement
+    size_t num_iterations = 1000000;
+    size_t *indices = malloc(num_iterations * sizeof(size_t));
+    if (indices == NULL) {
+        fprintf(stderr, "Failed to allocate index array\n");
+        return;
+    }
+
+    for (size_t i = 0; i < num_iterations; i++) {
+        indices[i] = (i * stride) % size;
+    }
+
+    // Single measurement loop for both throughput and latency
     double start = get_time();
-    size_t accesses = 0;
-    for (size_t i = 0; i < size; i += stride) {
-        sum += array[i];
-        accesses++;
+    for (size_t i = 0; i < num_iterations; i++) {
+        sum += array[indices[i]];
     }
     double end = get_time();
 
     double time_sec = (end - start) / 1000000.0;
-    double bytes_accessed = accesses * sizeof(long);
+    double bytes_accessed = num_iterations * sizeof(long);
     double throughput_mbps = (bytes_accessed / (1024 * 1024)) / time_sec;
+    double avg_latency_ns = (time_sec * 1000000000.0) / num_iterations;
 
-    printf("Throughput: %.2f MB/s (%zu strided accesses)\n", throughput_mbps, accesses);
-    printf("Time: %.3f seconds\n", time_sec);
-
-    // Latency measurement (repeated strided accesses)
-    size_t latency_iterations = 1000000;
-    start = get_time();
-    for (size_t i = 0; i < latency_iterations; i++) {
-        size_t idx = (i * stride) % size;
-        sum += array[idx];
-    }
-    end = get_time();
-
-    double avg_latency_ns = ((end - start) * 1000.0) / latency_iterations;
+    printf("Throughput: %.2f MB/s (%zu strided accesses)\n", throughput_mbps, num_iterations);
     printf("Average latency: %.2f ns per access\n", avg_latency_ns);
+    printf("Time: %.3f seconds\n", time_sec);
     printf("Sum (prevent optimization): %ld\n", sum);
+
+    free(indices);
 }
 
 int main(int argc, char *argv[]) {

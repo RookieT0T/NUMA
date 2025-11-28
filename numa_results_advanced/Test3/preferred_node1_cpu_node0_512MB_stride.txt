@@ -1,0 +1,11 @@
+Allocating 512 MB (67108864 elements)...
+Initializing array...
+Initialization complete.
+
+=== Stride Access Pattern (stride=64) ===
+Throughput: 454.43 MB/s (1000000 strided accesses)
+Average latency: 16.79 ns per access
+Time: 0.017 seconds
+Sum (prevent optimization): 48495232
+
+Test completed successfully
