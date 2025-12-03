@@ -1,21 +1,21 @@
-# started on Sun Nov 30 21:15:56 2025
+# started on Wed Dec  3 05:39:40 2025
 
 
- Performance counter stats for 'numactl --preferred=0 --cpunodebind=1 ./numa_test_advanced 2048 random':
+ Performance counter stats for '/users/avivalse/numactl-2.0.19/numactl --preferred=0 --cpunodebind=1 ./numa_test_advanced 2048 random':
 
-         2,554,644      cache-misses              #   51.025 % of all cache refs      (33.40%)
-         5,006,648      cache-references                                              (33.40%)
-           526,394      page-faults                                                 
-           526,394      minor-faults                                                
-                 0      major-faults                                                
-         3,904,638      dTLB-load-misses                                              (50.04%)
-         2,995,041      dTLB-store-misses                                             (66.69%)
-        46,579,533      L1-dcache-load-misses     #    7.03% of all L1-dcache accesses  (66.60%)
-       662,595,148      L1-dcache-loads                                               (66.10%)
+         2,777,743      cache-misses                     #   54.38% of all cache refs           (33.11%)
+         5,108,080      cache-references                                                        (33.08%)
+           528,146      page-faults                                                           
+           528,146      minor-faults                                                          
+                 0      major-faults                                                          
+         6,143,245      dTLB-load-misses                                                        (49.83%)
+         3,044,075      dTLB-store-misses                                                       (66.70%)
+        45,936,918      L1-dcache-load-misses            #    5.31% of all L1-dcache accesses   (66.89%)
+       865,786,297      L1-dcache-loads                                                         (66.21%)
 
-       1.586329656 seconds time elapsed
+       1.749272456 seconds time elapsed
 
-       0.619358000 seconds user
-       0.966998000 seconds sys
+       0.656377000 seconds user
+       1.097596000 seconds sys
 
 

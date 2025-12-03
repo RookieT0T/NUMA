@@ -3,32 +3,32 @@ Initializing array...
 Initialization complete.
 
 === Sequential Access Pattern ===
-Throughput: 3168.35 MB/s
-Average latency: 2.41 ns per access
+Throughput: 3133.22 MB/s
+Average latency: 2.44 ns per access
 Time: 0.002 seconds
 Sum (prevent optimization): 49990740
 
 Test completed successfully
 
 === PERFORMANCE COUNTERS ===
-# started on Sun Nov 30 21:15:45 2025
+# started on Wed Dec  3 05:39:25 2025
 
 
- Performance counter stats for 'numactl --localalloc --cpunodebind=0 ./numa_test_advanced 2048 sequential':
+ Performance counter stats for '/users/avivalse/numactl-2.0.19/numactl --localalloc --cpunodebind=0 ./numa_test_advanced 2048 sequential':
 
-         1,690,738      cache-misses              #   63.571 % of all cache refs      (33.08%)
-         2,659,617      cache-references                                              (33.27%)
-           524,439      page-faults                                                 
-           524,439      minor-faults                                                
-                 0      major-faults                                                
-         2,929,760      dTLB-load-misses                                              (50.20%)
-         2,999,376      dTLB-store-misses                                             (66.87%)
-        42,862,343      L1-dcache-load-misses     #    6.59% of all L1-dcache accesses  (66.92%)
-       649,995,857      L1-dcache-loads                                               (66.18%)
+         1,480,892      cache-misses                     #   49.95% of all cache refs           (33.37%)
+         2,964,687      cache-references                                                        (33.22%)
+           526,195      page-faults                                                           
+           526,195      minor-faults                                                          
+                 0      major-faults                                                          
+         5,906,715      dTLB-load-misses                                                        (49.80%)
+         3,313,360      dTLB-store-misses                                                       (66.58%)
+        41,636,376      L1-dcache-load-misses            #    4.95% of all L1-dcache accesses   (66.63%)
+       841,538,103      L1-dcache-loads                                                         (66.35%)
 
-       1.464957275 seconds time elapsed
+       1.671217939 seconds time elapsed
 
-       0.545607000 seconds user
-       0.918707000 seconds sys
+       0.627591000 seconds user
+       1.045573000 seconds sys
 
 

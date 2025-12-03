@@ -1,0 +1,34 @@
+Allocating 100250 MB (13139968000 elements)...
+Initializing array...
+Initialization complete.
+
+=== Sequential Access Pattern ===
+Throughput: 3176.27 MB/s
+Average latency: 2.40 ns per access
+Time: 0.002 seconds
+Sum (prevent optimization): 49991700
+
+Test completed successfully
+
+=== PERFORMANCE COUNTERS ===
+# started on Wed Dec  3 06:12:37 2025
+
+
+ Performance counter stats for '/users/avivalse/numactl-2.0.19/numactl --localalloc --cpunodebind=0 ./numa_test_advanced 100250 sequential':
+
+        63,795,149      cache-misses                     #   59.63% of all cache refs           (33.34%)
+       106,988,150      cache-references                                                        (33.34%)
+        25,665,896      page-faults                                                           
+        25,665,896      minor-faults                                                          
+                 0      major-faults                                                          
+       238,595,171      dTLB-load-misses                                                        (50.01%)
+       150,915,224      dTLB-store-misses                                                       (66.67%)
+     1,983,460,571      L1-dcache-load-misses            #    4.57% of all L1-dcache accesses   (66.66%)
+    43,362,758,048      L1-dcache-loads                                                         (66.66%)
+
+      77.388358640 seconds time elapsed
+
+      28.535807000 seconds user
+      48.828682000 seconds sys
+
+

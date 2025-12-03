@@ -1,0 +1,24 @@
+/users/avivalse/numactl-2.0.19/numactl: Killed
+
+=== PERFORMANCE COUNTERS ===
+# started on Wed Dec  3 06:32:20 2025
+
+
+ Performance counter stats for '/users/avivalse/numactl-2.0.19/numactl --membind=0 --cpunodebind=0 ./numa_test_advanced 100250 stride':
+
+        56,726,834      cache-misses                     #   42.79% of all cache refs           (33.33%)
+       132,567,646      cache-references                                                        (33.32%)
+        22,233,138      page-faults                                                           
+        22,233,135      minor-faults                                                          
+                 3      major-faults                                                          
+       241,928,461      dTLB-load-misses                                                        (49.98%)
+       138,483,025      dTLB-store-misses                                                       (66.67%)
+     1,785,012,895      L1-dcache-load-misses            #    5.94% of all L1-dcache accesses   (66.67%)
+    30,070,948,994      L1-dcache-loads                                                         (66.67%)
+
+     152.468251261 seconds time elapsed
+
+      26.535701000 seconds user
+      45.724569000 seconds sys
+
+

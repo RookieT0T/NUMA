@@ -1,0 +1,34 @@
+Allocating 8192 MB (1073741824 elements)...
+Initializing array...
+Initialization complete.
+
+=== Stride Access Pattern (stride=64) ===
+Throughput: 563.30 MB/s (1000000 strided accesses)
+Average latency: 13.54 ns per access
+Time: 0.014 seconds
+Sum (prevent optimization): 48496192
+
+Test completed successfully
+
+=== PERFORMANCE COUNTERS ===
+# started on Wed Dec  3 05:42:22 2025
+
+
+ Performance counter stats for '/users/avivalse/numactl-2.0.19/numactl --weighted-interleave=all --cpunodebind=0 ./numa_test_advanced 8192 stride':
+
+         6,734,310      cache-misses                     #   59.46% of all cache refs           (33.27%)
+        11,325,869      cache-references                                                        (33.28%)
+         2,101,016      page-faults                                                           
+         2,101,016      minor-faults                                                          
+                 0      major-faults                                                          
+        20,524,771      dTLB-load-misses                                                        (49.95%)
+        12,299,853      dTLB-store-misses                                                       (66.67%)
+       172,570,842      L1-dcache-load-misses            #    4.75% of all L1-dcache accesses   (66.73%)
+     3,629,727,961      L1-dcache-loads                                                         (66.56%)
+
+       6.624825427 seconds time elapsed
+
+       2.344268000 seconds user
+       4.283625000 seconds sys
+
+

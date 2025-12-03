@@ -1,21 +1,21 @@
-# started on Sun Nov 30 21:16:08 2025
+# started on Wed Dec  3 05:39:54 2025
 
 
- Performance counter stats for 'numactl --interleave=all --cpunodebind=0 ./numa_test_advanced 4096 sequential':
+ Performance counter stats for '/users/avivalse/numactl-2.0.19/numactl --interleave=all --cpunodebind=0 ./numa_test_advanced 4096 sequential':
 
-         3,231,946      cache-misses              #   51.322 % of all cache refs      (33.38%)
-         6,297,425      cache-references                                              (33.42%)
-         1,048,724      page-faults                                                 
-         1,048,724      minor-faults                                                
-                 0      major-faults                                                
-         5,505,117      dTLB-load-misses                                              (50.07%)
-         5,866,420      dTLB-store-misses                                             (66.71%)
-        90,900,050      L1-dcache-load-misses     #    6.68% of all L1-dcache accesses  (66.62%)
-     1,359,871,606      L1-dcache-loads                                               (66.31%)
+         3,063,049      cache-misses                     #   51.16% of all cache refs           (33.36%)
+         5,986,690      cache-references                                                        (33.44%)
+         1,050,486      page-faults                                                           
+         1,050,486      minor-faults                                                          
+                 0      major-faults                                                          
+         8,672,301      dTLB-load-misses                                                        (50.10%)
+         6,116,646      dTLB-store-misses                                                       (66.72%)
+        93,539,388      L1-dcache-load-misses            #    5.22% of all L1-dcache accesses   (66.64%)
+     1,791,486,759      L1-dcache-loads                                                         (66.45%)
 
-       3.004842207 seconds time elapsed
+       3.343979812 seconds time elapsed
 
-       1.184284000 seconds user
-       1.820437000 seconds sys
+       1.208889000 seconds user
+       2.138637000 seconds sys
 
 

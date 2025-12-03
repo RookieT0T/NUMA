@@ -1,0 +1,21 @@
+# started on Wed Dec  3 05:45:45 2025
+
+
+ Performance counter stats for '/users/avivalse/numactl-2.0.19/numactl --weighted-interleave=all --cpunodebind=0 ./numa_test_advanced 16384 stride':
+
+        11,789,389      cache-misses                     #   59.14% of all cache refs           (33.35%)
+        19,933,489      cache-references                                                        (33.33%)
+         4,198,149      page-faults                                                           
+         4,198,149      minor-faults                                                          
+                 0      major-faults                                                          
+        41,459,932      dTLB-load-misses                                                        (49.98%)
+        24,691,439      dTLB-store-misses                                                       (66.63%)
+       346,359,595      L1-dcache-load-misses            #    4.78% of all L1-dcache accesses   (66.65%)
+     7,246,077,870      L1-dcache-loads                                                         (66.64%)
+
+      13.103748776 seconds time elapsed
+
+       4.723821000 seconds user
+       8.377830000 seconds sys
+
+

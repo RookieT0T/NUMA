@@ -30,6 +30,7 @@ def collect_data():
         # Parse filenames: interleave_all_512MB_sequential.txt, localalloc_node0_512MB_sequential.txt, etc.
         patterns = [
             (r'interleave_all_(\d+)MB_(sequential|random|stride)\.txt', 'interleave'),
+            (r'wt_interleave_all_(\d+)MB_(sequential|random|stride)\.txt', 'wt-interleave'),
             (r'localalloc_node0_(\d+)MB_(sequential|random|stride)\.txt', 'localalloc'),
             (r'membind_strict_node0_(\d+)MB_(sequential|random|stride)\.txt', 'membind'),
             (r'preferred_node0_cpu_node1_(\d+)MB_(sequential|random|stride)\.txt', 'preferred'),
@@ -65,10 +66,11 @@ def plot_policy_comparison():
     data = collect_data()
     sizes = sorted(data.keys())
     patterns = ['sequential', 'random', 'stride']
-    policies = ['interleave', 'localalloc', 'membind', 'preferred']
+    policies = ['interleave', 'wt-interleave', 'localalloc', 'membind', 'preferred']
 
     colors = {
         'interleave': '#1f77b4',
+        'wt-interleave': '#000000',
         'localalloc': '#2ca02c',
         'membind': '#d62728',
         'preferred': '#ff7f0e'
@@ -77,6 +79,7 @@ def plot_policy_comparison():
     # Better labels for policies with clarification
     policy_labels = {
         'interleave': 'Interleave',
+        'wt-interleave': 'Weighted Interleave',
         'localalloc': 'Local Alloc',
         'membind': 'Membind',
         'preferred': 'Preferred (CPU≠Mem)'  # Clarify CPU and memory are on different nodes

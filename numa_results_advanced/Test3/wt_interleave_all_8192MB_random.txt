@@ -1,0 +1,34 @@
+Allocating 8192 MB (1073741824 elements)...
+Initializing array...
+Initialization complete.
+
+=== Random Access Pattern ===
+Throughput: 133.51 MB/s (1000000 random accesses)
+Average latency: 57.14 ns per access
+Time: 0.057 seconds
+Sum (prevent optimization): 50018649
+
+Test completed successfully
+
+=== PERFORMANCE COUNTERS ===
+# started on Wed Dec  3 05:41:42 2025
+
+
+ Performance counter stats for '/users/avivalse/numactl-2.0.19/numactl --weighted-interleave=all --cpunodebind=0 ./numa_test_advanced 8192 random':
+
+         7,260,334      cache-misses                     #   55.94% of all cache refs           (33.26%)
+        12,978,663      cache-references                                                        (33.31%)
+         2,101,001      page-faults                                                           
+         2,101,001      minor-faults                                                          
+                 0      major-faults                                                          
+        26,704,348      dTLB-load-misses                                                        (50.00%)
+        12,446,506      dTLB-store-misses                                                       (66.70%)
+       177,278,271      L1-dcache-load-misses            #    4.87% of all L1-dcache accesses   (66.74%)
+     3,636,660,776      L1-dcache-loads                                                         (66.53%)
+
+       6.680337924 seconds time elapsed
+
+       2.317940000 seconds user
+       4.365276000 seconds sys
+
+
