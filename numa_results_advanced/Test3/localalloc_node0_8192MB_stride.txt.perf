@@ -1,0 +1,21 @@
+# started on Sun Nov 30 21:18:01 2025
+
+
+ Performance counter stats for 'numactl --localalloc --cpunodebind=0 ./numa_test_advanced 8192 stride':
+
+         7,954,434      cache-misses              #   61.176 % of all cache refs      (33.33%)
+        13,002,593      cache-references                                              (33.32%)
+         2,099,253      page-faults                                                 
+         2,099,253      minor-faults                                                
+                 0      major-faults                                                
+        11,736,227      dTLB-load-misses                                              (49.99%)
+        12,090,402      dTLB-store-misses                                             (66.66%)
+       179,978,771      L1-dcache-load-misses     #    6.73% of all L1-dcache accesses  (66.67%)
+     2,675,185,918      L1-dcache-loads                                               (66.54%)
+
+       5.784045481 seconds time elapsed
+
+       2.335885000 seconds user
+       3.447830000 seconds sys
+
+

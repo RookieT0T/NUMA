@@ -1,0 +1,24 @@
+numactl: Killed
+
+=== PERFORMANCE COUNTERS ===
+# started on Sun Nov 30 20:58:41 2025
+
+
+ Performance counter stats for 'numactl --membind=0 --cpunodebind=0 ./numa_test_advanced 100513 random':
+
+        58,368,568      cache-misses              #   36.458 % of all cache refs      (33.31%)
+       160,099,205      cache-references                                              (33.27%)
+        22,163,964      page-faults                                                 
+        22,163,956      minor-faults                                                
+                 7      major-faults                                                
+       163,270,467      dTLB-load-misses                                              (49.92%)
+       130,923,696      dTLB-store-misses                                             (66.65%)
+     1,819,672,571      L1-dcache-load-misses     #    6.36% of all L1-dcache accesses  (66.69%)
+    28,615,836,598      L1-dcache-loads                                               (66.72%)
+
+     190.440776670 seconds time elapsed
+
+      26.919820000 seconds user
+      46.737082000 seconds sys
+
+

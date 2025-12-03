@@ -1,0 +1,21 @@
+# started on Mon Dec  1 19:14:52 2025
+
+
+ Performance counter stats for 'numactl --cpunodebind=0 ./numa_test_advanced 16384 migrate':
+
+       604,893,569      cache-misses              #   56.495 % of all cache refs      (33.33%)
+     1,070,706,868      cache-references                                              (33.42%)
+         8,405,148      page-faults                                                 
+         8,405,148      minor-faults                                                
+                 0      major-faults                                                
+       455,091,470      dTLB-load-misses                                              (50.00%)
+        53,704,590      dTLB-store-misses                                             (66.71%)
+     2,241,935,761      L1-dcache-load-misses     #    7.75% of all L1-dcache accesses  (66.67%)
+    28,941,600,941      L1-dcache-loads                                               (66.56%)
+
+      89.038668351 seconds time elapsed
+
+      31.251519000 seconds user
+      36.738518000 seconds sys
+
+

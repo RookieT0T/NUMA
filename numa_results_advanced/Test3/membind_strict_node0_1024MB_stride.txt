@@ -1,0 +1,34 @@
+Allocating 1024 MB (134217728 elements)...
+Initializing array...
+Initialization complete.
+
+=== Stride Access Pattern (stride=64) ===
+Throughput: 635.25 MB/s (1000000 strided accesses)
+Average latency: 12.01 ns per access
+Time: 0.012 seconds
+Sum (prevent optimization): 48494752
+
+Test completed successfully
+
+=== PERFORMANCE COUNTERS ===
+# started on Sun Nov 30 21:15:40 2025
+
+
+ Performance counter stats for 'numactl --membind=0 --cpunodebind=0 ./numa_test_advanced 1024 stride':
+
+         1,022,307      cache-misses              #   52.665 % of all cache refs      (33.07%)
+         1,941,169      cache-references                                              (33.60%)
+           264,248      page-faults                                                 
+           264,248      minor-faults                                                
+                 0      major-faults                                                
+         1,644,086      dTLB-load-misses                                              (50.56%)
+         1,501,282      dTLB-store-misses                                             (67.04%)
+        23,777,689      L1-dcache-load-misses     #    7.32% of all L1-dcache accesses  (66.93%)
+       325,038,097      L1-dcache-loads                                               (65.34%)
+
+       0.753356993 seconds time elapsed
+
+       0.280287000 seconds user
+       0.472484000 seconds sys
+
+

@@ -1,0 +1,13 @@
+numa_hit 395812307
+numa_miss 16415245
+numa_foreign 16415245
+numa_interleave 57481
+numa_local 390683098
+numa_other 21544454
+numa_pte_updates 6884863
+numa_huge_pte_updates 0
+numa_hint_faults 5391932
+numa_hint_faults_local 3700973
+numa_pages_migrated 1018508
+pgmigrate_success 1035406
+pgmigrate_fail 1556

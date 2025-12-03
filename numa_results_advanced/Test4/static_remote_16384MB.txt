@@ -1,0 +1,34 @@
+Allocating 16384 MB (2147483648 elements)...
+Initializing array...
+Initialization complete.
+
+=== Sequential Access Pattern ===
+Throughput: 3098.86 MB/s
+Average latency: 2.46 ns per access
+Time: 0.002 seconds
+Sum (prevent optimization): 49991700
+
+Test completed successfully
+
+=== PERFORMANCE COUNTERS ===
+# started on Mon Dec  1 19:14:40 2025
+
+
+ Performance counter stats for 'numactl --membind=1 --cpunodebind=0 ./numa_test_advanced 16384 sequential':
+
+        11,752,151      cache-misses              #   65.339 % of all cache refs      (33.32%)
+        17,986,335      cache-references                                              (33.35%)
+         4,194,457      page-faults                                                 
+         4,194,457      minor-faults                                                
+                 0      major-faults                                                
+        32,430,390      dTLB-load-misses                                              (50.02%)
+        23,775,101      dTLB-store-misses                                             (66.68%)
+       342,776,981      L1-dcache-load-misses     #    6.57% of all L1-dcache accesses  (66.68%)
+     5,216,783,261      L1-dcache-loads                                               (66.58%)
+
+      11.763930234 seconds time elapsed
+
+       4.651519000 seconds user
+       7.111266000 seconds sys
+
+

@@ -1,0 +1,129 @@
+Test Category 1: Memory Pressure & Fallback Behavior
+Key Comparisons:
+membind vs preferred across increasing memory sizes
+Performance degradation by access pattern (sequential vs random vs stride)
+Breaking point where membind fails vs preferred gracefully degrades
+Data to Present:
+Memory Pressure Response Curve: Throughput/Latency vs Memory Size
+Access Pattern Sensitivity Heatmap: Shows which patterns suffer most under pressure
+Supported Findings:
+✅ Finding 1: "Strict policies (membind) fail catastrophically when node capacity exceeded"
+Evidence: Sharp drop in throughput or OOM when size > node memory
+Counter data: numa_miss spikes dramatically, showing forced remote allocation or failure
+✅ Finding 2: "Preferred policy provides graceful degradation under pressure"
+Evidence: Performance gradually decreases but doesn't crash
+Counter data: Increasing numa_miss and numa_foreign as fallback occurs
+✅ Finding 3: "Random access patterns are more sensitive to memory pressure than sequential"
+Evidence: Heatmap shows deeper red (worse degradation) for random vs sequential
+Reason: Random access doesn't benefit from prefetching when memory is remote
+
+Test Category 2: Cross-Node Memory Access
+Key Comparisons:
+Local (node 0→0) vs Remote (node 0→1) vs Remote (node 1→0)
+NUMA penalty magnitude across different memory sizes
+Access pattern impact on remote access overhead
+Data to Present:
+NUMA Penalty Bar Chart: Shows throughput/latency differences with penalty arrows
+Penalty percentage for each memory size and access pattern
+Supported Findings:
+✅ Finding 1: "Remote memory access incurs 30-60% throughput penalty" (adjust based on your data)
+Evidence: Bar chart shows consistent gap between local and remote bars
+Counter data: node-load-misses counts correlate with throughput drop
+✅ Finding 2: "NUMA penalty is symmetric between nodes"
+Evidence: Remote (0→1) and Remote (1→0) show similar performance
+Implication: System has uniform NUMA distance (not asymmetric topology)
+✅ Finding 3: "Sequential access partially masks NUMA penalty via prefetching"
+Evidence: Smaller penalty for sequential vs random/stride patterns
+Reason: Hardware prefetchers can predict sequential patterns even across nodes
+✅ Finding 4: "Latency penalty increases more dramatically than throughput penalty"
+Evidence: Latency graph shows steeper penalty arrows than throughput graph
+Reason: Each remote access adds interconnect latency (~100ns typical)
+
+Test Category 3: Policy Comparison Under Load
+Key Comparisons:
+Interleave vs LocalAlloc vs Membind vs Preferred (CPU≠Mem)
+Policy behavior across memory sizes (fits in single node vs spans nodes)
+Sweet spots for each policy based on workload characteristics
+Data to Present:
+Policy Performance Lines: Shows how each policy scales with memory size
+Policy Sweet Spot Matrix: Recommendations for when to use each policy
+Supported Findings:
+✅ Finding 1: "LocalAlloc equals Membind when memory fits in single node"
+Evidence: Lines overlap for sizes < node capacity
+Counter data: Both show 100% numa_local, minimal numa_foreign
+✅ Finding 2: "Interleave provides consistent but suboptimal performance"
+Evidence: Flat line across sizes, never best but never worst
+Counter data: 50/50 split in numa_local vs numa_other
+Use case: Good for unpredictable access patterns or multi-threaded workloads
+✅ Finding 3: "Preferred (CPU≠Mem) shows worst performance due to forced remote access"
+Evidence: Lowest throughput line, especially for random access
+Counter data: High numa_foreign, low numa_local
+Insight: Demonstrates cost of CPU/memory affinity mismatch
+✅ Finding 4: "Strict Membind offers best performance when memory fits locally"
+Evidence: Highest throughput for small sizes, then crashes/fails for large sizes
+Counter data: 100% numa_local until failure point
+Trade-off: Performance vs reliability
+✅ Finding 5: "Policy choice matters more for random/stride than sequential access"
+Evidence: Larger spread between policy lines for random compared to sequential
+Reason: Sequential patterns benefit from prefetch regardless of policy
+
+Test Category 4: NUMA Page Migration
+Key Comparisons:
+Auto-NUMA migration effectiveness: Initial vs Mid vs Final distribution
+Migration cost-benefit: Baseline Local vs Static Remote vs Auto-Migrated
+Migration activity correlation: Pages migrated vs performance improvement
+Data to Present:
+Migration Timeline: Stacked area showing pages moving from Node 1 → Node 0
+Migration Cost Bar Chart: Compare 3 scenarios
+Counter Correlation: Dual-axis plot (migration events vs throughput)
+Supported Findings:
+✅ Finding 1: "Auto-NUMA successfully detects and corrects misallocated pages"
+Evidence: Timeline shows Node0 percentage increasing from 0% → 90%+
+Counter data: numa_pages_migrated delta matches distribution change
+Proof: numa_pte_updates shows auto-NUMA activity (hint page faults)
+✅ Finding 2: "Migration overhead is amortized over repeated access"
+Evidence: Auto-Migrated throughput approaches Baseline Local (not Static Remote)
+Example: "Migration recovered 75% of remote access penalty"
+Counter data: pgmigrate_success shows successful migrations
+✅ Finding 3: "Migration is most beneficial for long-running, repetitive workloads"
+Evidence: Compare short vs long test durations - longer shows better migration payoff
+Reason: One-time migration cost << repeated remote access savings
+✅ Finding 4: "Memory pressure triggers proactive migration"
+Evidence: Pressure-induced tests show kernel moving pages to balance load
+Counter data: Higher numa_pages_migrated in pressure scenarios
+System behavior: Kernel optimizes for overall system performance
+✅ Finding 5: "Migration exhibits diminishing returns for small working sets"
+Evidence: 512MB migration shows less improvement than 2048MB
+Reason: Small datasets may fit in cache, reducing memory access frequency
+Counter data: Lower cache-miss rates for smaller sizes
+✅ Finding 6: "Sequential access patterns benefit most from migration"
+Evidence: Sequential auto-migrated approaches local performance faster than random
+Reason: Kernel's migration heuristics work better with predictable patterns
+Counter data: Higher numa_pte_updates (scan rate) for sequential workloads
+
+Cross-Category Meta-Findings
+Performance Counter Insights:
+✅ Cache hierarchy matters more than NUMA distance for small working sets
+Evidence: Category 1 small sizes show minimal local/remote difference
+Counter data: Low dTLB-load-misses, high L1-dcache-loads hit rate
+✅ TLB pressure amplifies NUMA penalty
+Evidence: Large working sets show compounding penalties
+Counter data: High dTLB-load-misses correlates with worse NUMA penalty
+Reason: TLB miss → page walk → remote memory = double penalty
+✅ Page fault cost dominates for first-touch allocation
+Evidence: minor-faults and major-faults counters
+Implication: Pre-faulting/pre-population strategies could help
+
+Presentation Narrative Structure
+Recommended Story Arc:
+Category 2 First - Establish baseline NUMA penalty
+"Remote memory is 40% slower - this is the cost we're trying to avoid"
+Category 3 - Show policy tradeoffs
+"Different policies make different tradeoffs between performance and flexibility"
+Category 1 - Demonstrate pressure behavior
+"When memory is scarce, policy choice determines crash vs degradation"
+Category 4 - Show kernel optimization
+"The kernel can dynamically fix suboptimal placement, but it takes time"
+Conclusion:
+Design recommendation: Use preferred for production (reliability), membind for benchmarks (performance)
+Future work: Investigate thread pinning, huge pages, or explicit migration APIs

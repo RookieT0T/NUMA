@@ -1,0 +1,21 @@
+# started on Sun Nov 30 20:43:12 2025
+
+
+ Performance counter stats for 'numactl --membind=0 --cpunodebind=1 ./numa_test_advanced 32768 stride':
+
+        22,822,768      cache-misses              #   71.371 % of all cache refs      (33.32%)
+        31,977,533      cache-references                                              (33.34%)
+         8,390,710      page-faults                                                 
+         8,390,710      minor-faults                                                
+                 0      major-faults                                                
+        67,404,713      dTLB-load-misses                                              (50.02%)
+        48,950,076      dTLB-store-misses                                             (66.68%)
+       684,997,595      L1-dcache-load-misses     #    6.58% of all L1-dcache accesses  (66.68%)
+    10,406,913,239      L1-dcache-loads                                               (66.63%)
+
+      23.386146943 seconds time elapsed
+
+       9.230724000 seconds user
+      14.154044000 seconds sys
+
+

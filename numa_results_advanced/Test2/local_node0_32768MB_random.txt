@@ -1,0 +1,34 @@
+Allocating 32768 MB (4294967296 elements)...
+Initializing array...
+Initialization complete.
+
+=== Random Access Pattern ===
+Throughput: 116.28 MB/s (1000000 random accesses)
+Average latency: 65.61 ns per access
+Time: 0.066 seconds
+Sum (prevent optimization): 50030481
+
+Test completed successfully
+
+=== PERFORMANCE COUNTERS ===
+# started on Sun Nov 30 20:41:16 2025
+
+
+ Performance counter stats for 'numactl --membind=0 --cpunodebind=0 ./numa_test_advanced 32768 random':
+
+        23,710,679      cache-misses              #   59.853 % of all cache refs      (33.33%)
+        39,615,073      cache-references                                              (33.35%)
+         8,390,710      page-faults                                                 
+         8,390,710      minor-faults                                                
+                 0      major-faults                                                
+        50,726,096      dTLB-load-misses                                              (50.02%)
+        49,094,351      dTLB-store-misses                                             (66.68%)
+       729,573,930      L1-dcache-load-misses     #    7.02% of all L1-dcache accesses  (66.67%)
+    10,390,105,900      L1-dcache-loads                                               (66.62%)
+
+      22.835521880 seconds time elapsed
+
+       9.314810000 seconds user
+      13.518274000 seconds sys
+
+

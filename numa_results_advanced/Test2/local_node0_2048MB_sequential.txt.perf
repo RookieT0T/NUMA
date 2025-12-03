@@ -1,0 +1,21 @@
+# started on Sun Nov 30 20:36:37 2025
+
+
+ Performance counter stats for 'numactl --membind=0 --cpunodebind=0 ./numa_test_advanced 2048 sequential':
+
+         1,530,328      cache-misses              #   57.806 % of all cache refs      (33.42%)
+         2,647,347      cache-references                                              (33.43%)
+           524,437      page-faults                                                 
+           524,437      minor-faults                                                
+                 0      major-faults                                                
+         2,979,385      dTLB-load-misses                                              (50.07%)
+         2,909,947      dTLB-store-misses                                             (66.71%)
+        45,116,729      L1-dcache-load-misses     #    6.93% of all L1-dcache accesses  (66.58%)
+       651,149,304      L1-dcache-loads                                               (66.01%)
+
+       1.442710828 seconds time elapsed
+
+       0.603399000 seconds user
+       0.839165000 seconds sys
+
+

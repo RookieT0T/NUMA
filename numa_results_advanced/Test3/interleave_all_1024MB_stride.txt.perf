@@ -1,0 +1,21 @@
+# started on Sun Nov 30 21:15:39 2025
+
+
+ Performance counter stats for 'numactl --interleave=all --cpunodebind=0 ./numa_test_advanced 1024 stride':
+
+         1,855,322      cache-misses              #   89.881 % of all cache refs      (33.53%)
+         2,064,206      cache-references                                              (33.53%)
+           264,247      page-faults                                                 
+           264,247      minor-faults                                                
+                 0      major-faults                                                
+         1,497,757      dTLB-load-misses                                              (50.15%)
+         1,476,329      dTLB-store-misses                                             (66.76%)
+        24,348,333      L1-dcache-load-misses     #    7.01% of all L1-dcache accesses  (66.47%)
+       347,171,311      L1-dcache-loads                                               (65.47%)
+
+       0.795480816 seconds time elapsed
+
+       0.295690000 seconds user
+       0.499477000 seconds sys
+
+
