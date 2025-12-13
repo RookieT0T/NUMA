@@ -284,21 +284,22 @@ def plot_tlb_misses():
                     # Add label
                     mid_y = (local_val + remote_val) / 2
                     ax.text(i - width/2, mid_y, f'↑{increase_pct:.0f}%',
-                           fontsize=10, color='red', fontweight='bold',
+                           fontsize=12, color='red', fontweight='bold',
                            bbox=dict(boxstyle='round,pad=0.3', facecolor='white',
                                     edgecolor='red', alpha=0.9, linewidth=2))
 
         # Formatting
-        ax.set_xlabel('Memory Size', fontsize=11, fontweight='bold')
-        ax.set_ylabel('Total TLB Misses (load + store)', fontsize=11, fontweight='bold')
+        ax.set_xlabel('Memory Allocation Size', fontsize=12, fontweight='bold')
+        ax.set_ylabel('Total TLB Misses (load + store)', fontsize=12, fontweight='bold')
         ax.set_title(pattern_titles[idx], fontsize=12, fontweight='bold')
         ax.set_xticks(x)
+        ax.tick_params(axis='x', labelsize=13)
         ax.set_xticklabels([format_size_label(s) for s in all_sizes], rotation=45, ha='right')
-        ax.legend(fontsize=9)
+        ax.legend(fontsize=14)
         ax.grid(True, alpha=0.3, axis='y')
 
-    plt.suptitle('Test Category 2: TLB Misses - Local vs Remote Memory Access',
-                 fontsize=14, fontweight='bold')
+    plt.suptitle('TLB Misses - Local vs Remote Memory Access',
+                 fontsize=16, fontweight='bold')
     plt.tight_layout()
     plt.savefig('category2_tlb_misses.png', dpi=300, bbox_inches='tight')
     print("✓ Saved: category2_tlb_misses.png")
@@ -345,25 +346,26 @@ def plot_numa_allocation_verification():
                 # Label for numa_local
                 if local_pct > 5:  # Only show if significant
                     ax.text(i, local / 2, f'{local_pct:.0f}%',
-                           ha='center', va='center', fontsize=9, fontweight='bold', color='black')
+                           ha='center', va='center', fontsize=12, fontweight='bold', color='black')
 
                 # Label for numa_other
                 if other_pct > 5:  # Only show if significant
                     ax.text(i, local + other / 2, f'{other_pct:.0f}%',
-                           ha='center', va='center', fontsize=9, fontweight='bold', color='black')
+                           ha='center', va='center', fontsize=12, fontweight='bold', color='black')
 
         # Formatting
-        ax.set_xlabel('Memory Size', fontsize=11, fontweight='bold')
-        ax.set_ylabel('Allocation Count (Delta)', fontsize=11, fontweight='bold')
-        ax.set_title(title, fontsize=11, fontweight='bold')
+        ax.set_xlabel('Memory Allocation Size', fontsize=12, fontweight='bold')
+        ax.set_ylabel('Allocation Count (Delta)', fontsize=12, fontweight='bold')
+        ax.set_title(title, fontsize=12, fontweight='bold')
         ax.set_xticks(x)
+        ax.tick_params(axis='x', labelsize=13)
         ax.set_xticklabels([format_size_label(s) for s in sizes], rotation=45, ha='right')
-        ax.legend(fontsize=9, loc='upper right')
+        ax.legend(fontsize=14, loc='upper right')
         ax.grid(True, alpha=0.3, axis='y')
 
-    plt.suptitle('Test Category 2: NUMA Allocation Verification (Random Access Pattern)\n' +
+    plt.suptitle('NUMA Allocation Verification (Random Access Pattern)\n' +
                  'Confirms Correct CPU/Memory Binding',
-                 fontsize=14, fontweight='bold')
+                 fontsize=16, fontweight='bold')
     plt.tight_layout()
     plt.savefig('category2_numa_allocation_verification.png', dpi=300, bbox_inches='tight')
     print("✓ Saved: category2_numa_allocation_verification.png")

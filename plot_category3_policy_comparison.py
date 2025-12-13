@@ -45,7 +45,7 @@ def collect_data():
                 filepath = os.path.join(RESULTS_DIR, filename)
                 throughput = parse_result_file(filepath)
 
-                if throughput is not None:
+                if throughput is not None and size_mb <= 100250:
                     if size_mb not in data:
                         data[size_mb] = {}
                     if access_pattern not in data[size_mb]:
@@ -79,7 +79,7 @@ def plot_policy_comparison():
     # Better labels for policies with clarification
     policy_labels = {
         'interleave': 'Interleave',
-        'wt-interleave': 'Weighted Interleave',
+        'wt-interleave': 'Weighted Interleave (2:1)',
         'localalloc': 'Local Alloc',
         'membind': 'Membind',
         'preferred': 'Preferred (CPU≠Mem)'  # Clarify CPU and memory are on different nodes
@@ -107,16 +107,17 @@ def plot_policy_comparison():
                 ax.plot(x, plot_data, 'o-', linewidth=2, markersize=8,
                        label=policy_labels[policy], color=colors[policy])
 
-        ax.set_xlabel('Memory Size', fontsize=11, fontweight='bold')
-        ax.set_ylabel('Throughput (MB/s)', fontsize=11, fontweight='bold')
-        ax.set_title(f'{pattern.capitalize()} Access', fontsize=12, fontweight='bold')
+        ax.set_xlabel('Memory Allocation Size', fontsize=13, fontweight='bold')
+        ax.set_ylabel('Throughput (MB/s)', fontsize=13, fontweight='bold')
+        ax.set_title(f'{pattern.capitalize()} Access', fontsize=14, fontweight='bold')
         ax.set_xticks(x)
+        ax.tick_params(axis='x', labelsize=13)
         ax.set_xticklabels([format_size_label(s) for s in sizes], rotation=45, ha='right')
-        ax.legend(fontsize=9)
-        ax.grid(True, alpha=0.3)
+        ax.legend(fontsize=12, framealpha=0.5, loc='upper right')
+        ax.grid(True, alpha=0.8)
 
     plt.suptitle('NUMA Policy Performance Comparison',
-                 fontsize=14, fontweight='bold', y=1.02)
+                 fontsize=16, fontweight='bold', y=1.02)
     plt.tight_layout()
     plt.savefig('category3_policy_comparison.png', dpi=300, bbox_inches='tight')
     print("✓ Saved: category3_policy_comparison.png")

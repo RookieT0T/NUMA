@@ -242,17 +242,18 @@ def plot_throughput_pressure():
                 mid_x = len(all_sizes) / 2
                 mid_y = (baseline_val + final_val) / 2
                 ax.text(mid_x, mid_y, f'↓{degradation_pct:.0f}%',
-                       fontsize=11, color='red', fontweight='bold',
+                       fontsize=13, color='red', fontweight='bold',
                        bbox=dict(boxstyle='round,pad=0.4', facecolor='white',
                                 edgecolor='red', alpha=0.9, linewidth=2))
 
         # Formatting
-        ax.set_xlabel('Memory Size', fontsize=11, fontweight='bold')
-        ax.set_ylabel('Throughput (MB/s)', fontsize=11, fontweight='bold')
-        ax.set_title(pattern_titles[idx], fontsize=12, fontweight='bold')
+        ax.set_xlabel('Memory Size', fontsize=13, fontweight='bold')
+        ax.set_ylabel('Throughput (MB/s)', fontsize=13, fontweight='bold')
+        ax.set_title(pattern_titles[idx], fontsize=14, fontweight='bold')
         ax.set_xticks(x)
+        ax.tick_params(axis='x', labelsize=13)
         ax.set_xticklabels([format_size_label(s) for s in all_sizes], rotation=45, ha='right')
-        ax.legend(fontsize=9)
+        ax.legend(fontsize=14)
         ax.grid(True, alpha=0.3, axis='y')
 
         # Add pivot point if detected
@@ -263,8 +264,8 @@ def plot_throughput_pressure():
                     ax.axvline(x=i-0.5, color='gray', linestyle=':', linewidth=2, alpha=0.7)
                     break
 
-    plt.suptitle('Test Category 1: Throughput - Memory Pressure & Fallback Behavior',
-                 fontsize=14, fontweight='bold')
+    plt.suptitle('Throughput - Memory Pressure & Fallback Behavior',
+                 fontsize=16, fontweight='bold')
     plt.tight_layout()
     plt.savefig('category1_throughput_pressure.png', dpi=300, bbox_inches='tight')
     print("✓ Saved: category1_throughput_pressure.png")
@@ -333,17 +334,18 @@ def plot_latency_pressure():
                 mid_x = len(all_sizes) / 2
                 mid_y = (baseline_val + final_val) / 2
                 ax.text(mid_x, mid_y, f'↑{increase_pct:.0f}%',
-                       fontsize=11, color='red', fontweight='bold',
+                       fontsize=13, color='red', fontweight='bold',
                        bbox=dict(boxstyle='round,pad=0.4', facecolor='white',
                                 edgecolor='red', alpha=0.9, linewidth=2))
 
         # Formatting
-        ax.set_xlabel('Memory Size', fontsize=11, fontweight='bold')
-        ax.set_ylabel('Average Latency (ns)', fontsize=11, fontweight='bold')
-        ax.set_title(pattern_titles[idx], fontsize=12, fontweight='bold')
+        ax.set_xlabel('Memory Allocation Size', fontsize=13, fontweight='bold')
+        ax.set_ylabel('Average Latency (ns)', fontsize=13, fontweight='bold')
+        ax.set_title(pattern_titles[idx], fontsize=14, fontweight='bold')
         ax.set_xticks(x)
+        ax.tick_params(axis='x', labelsize=13)
         ax.set_xticklabels([format_size_label(s) for s in all_sizes], rotation=45, ha='right')
-        ax.legend(fontsize=9)
+        ax.legend(fontsize=14)
         ax.grid(True, alpha=0.3, axis='y')
 
         # Add pivot point if detected
@@ -353,8 +355,8 @@ def plot_latency_pressure():
                     ax.axvline(x=i-0.5, color='gray', linestyle=':', linewidth=2, alpha=0.7)
                     break
 
-    plt.suptitle('Test Category 1: Latency - Memory Pressure & Fallback Behavior',
-                 fontsize=14, fontweight='bold')
+    plt.suptitle('Latency - Memory Pressure & Fallback Behavior',
+                 fontsize=16, fontweight='bold')
     plt.tight_layout()
     plt.savefig('category1_latency_pressure.png', dpi=300, bbox_inches='tight')
     print("✓ Saved: category1_latency_pressure.png")
@@ -415,16 +417,17 @@ def plot_preferred_fallback_counters():
                 #                    edgecolor='red', alpha=0.8, linewidth=1.5))
 
         # Formatting
-        ax.set_xlabel('Memory Size', fontsize=11, fontweight='bold')
-        ax.set_ylabel('Counter Value (Delta)', fontsize=11, fontweight='bold')
-        ax.set_title(title, fontsize=11, fontweight='bold')
+        ax.set_xlabel('Memory Allocation Size', fontsize=13, fontweight='bold')
+        ax.set_ylabel('Counter Value (Delta)', fontsize=13, fontweight='bold')
+        ax.set_title(title, fontsize=13, fontweight='bold')
         ax.set_xticks(x)
+        ax.tick_params(axis='x', labelsize=13)
         ax.set_xticklabels([format_size_label(s) for s in data['sizes']], rotation=45, ha='right')
         ax.grid(True, alpha=0.3, axis='y')
         if node_capacity and idx == 0:
-            ax.legend(fontsize=9, loc='upper left')
+            ax.legend(fontsize=14, loc='upper left')
 
-    plt.suptitle('Test Category 1: Performance Counter Evidence - Preferred Policy Fallback Under Random Access', fontsize=14, fontweight='bold')
+    plt.suptitle('Performance Counter Evidence - Preferred Policy Fallback Under Random Access', fontsize=16, fontweight='bold')
     plt.tight_layout()
     plt.savefig('category1_preferred_fallback_counters.png', dpi=300, bbox_inches='tight')
     print("✓ Saved: category1_preferred_fallback_counters.png")

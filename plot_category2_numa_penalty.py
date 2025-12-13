@@ -107,26 +107,28 @@ def plot_numa_penalty():
 
                 # Add arrow annotation
                 ax.annotate('', xy=(arrow_x_end, arrow_y_end), xytext=(arrow_x_start, arrow_y_start),
-                           arrowprops=dict(arrowstyle='->', color='blue', lw=1.0, alpha=0.6))
+                           arrowprops=dict(arrowstyle='->', color='blue', lw=1.0, alpha=0.8))
 
                 # Add penalty percentage text
+                label = f'{penalty:+.0f}%'
                 mid_x = (arrow_x_start + arrow_x_end) / 2
                 mid_y = (arrow_y_start + arrow_y_end) / 2
-                ax.text(mid_x, mid_y, f'-{penalty:.0f}%',
-                       fontsize=6, color='blue', fontweight='bold',
+                ax.text(mid_x, mid_y, label,
+                       fontsize=9, color='blue', fontweight='bold',
                        ha='center', va='bottom', bbox=dict(boxstyle='round,pad=0.3',
-                       facecolor='white', edgecolor='blue', alpha=0.6))
+                       facecolor='white', edgecolor='blue', alpha=0.8))
 
-        ax.set_xlabel('Memory Size', fontsize=11, fontweight='bold')
-        ax.set_ylabel('Throughput (MB/s)', fontsize=11, fontweight='bold')
+        ax.set_xlabel('Memory Allocation Size', fontsize=12, fontweight='bold')
+        ax.set_ylabel('Throughput (MB/s)', fontsize=12, fontweight='bold')
         ax.set_title(f'{pattern.capitalize()} Access', fontsize=12, fontweight='bold')
         ax.set_xticks(x)
+        ax.tick_params(axis='x', labelsize=13)
         ax.set_xticklabels([format_size_label(s) for s in sizes], rotation=45, ha='right')
-        ax.legend(fontsize=9)
+        ax.legend(fontsize=12, loc='lower left')
         ax.grid(True, alpha=0.3, axis='y')
 
     plt.suptitle('NUMA Penalty: Local vs Remote Memory Access',
-                 fontsize=14, fontweight='bold', y=1.02)
+                 fontsize=16, fontweight='bold', y=1.02)
     plt.tight_layout()
     plt.savefig('category2_numa_penalty.png', dpi=300, bbox_inches='tight')
     print("✓ Saved: category2_numa_penalty.png")
